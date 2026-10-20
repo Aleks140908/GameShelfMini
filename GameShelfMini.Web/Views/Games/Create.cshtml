@@ -1,8 +1,36 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Create Game";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form>
+
+    <div class="form-group">
+        <label>Заглавие на игра</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Разработчик</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Платформа</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Жанр</label>
+        <input type="text" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Година на издаване</label>
+        <input type="number" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary my-3">
+        Запази
+    </button>
+
+</form>

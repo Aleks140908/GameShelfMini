@@ -22,6 +22,27 @@ namespace GameShelfMini.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GameShelfMini.Data.Entities.Customer", b =>
+                {
+                    b.Property<Guid>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customers");
+                });
+
             modelBuilder.Entity("GameShelfMini.Data.Entities.Developer", b =>
                 {
                     b.Property<Guid>("DeveloperId")
@@ -44,6 +65,9 @@ namespace GameShelfMini.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("DeveloperId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
@@ -55,8 +79,8 @@ namespace GameShelfMini.Data.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("GameId");
 
@@ -78,6 +102,33 @@ namespace GameShelfMini.Data.Migrations
                     b.ToTable("GameDevelopers");
                 });
 
+            modelBuilder.Entity("GameShelfMini.Data.Entities.Loan", b =>
+                {
+                    b.Property<Guid>("LoanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("GameId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("LoanDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ReturnDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("LoanId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("Loans");
+                });
+
             modelBuilder.Entity("GameShelfMini.Data.Entities.GameDeveloper", b =>
                 {
                     b.HasOne("GameShelfMini.Data.Entities.Developer", "Developer")
@@ -97,6 +148,30 @@ namespace GameShelfMini.Data.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("GameShelfMini.Data.Entities.Loan", b =>
+                {
+                    b.HasOne("GameShelfMini.Data.Entities.Customer", "Customer")
+                        .WithMany("Loans")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GameShelfMini.Data.Entities.Game", "Game")
+                        .WithMany("Loans")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("GameShelfMini.Data.Entities.Customer", b =>
+                {
+                    b.Navigation("Loans");
+                });
+
             modelBuilder.Entity("GameShelfMini.Data.Entities.Developer", b =>
                 {
                     b.Navigation("GameDevelopers");
@@ -105,6 +180,8 @@ namespace GameShelfMini.Data.Migrations
             modelBuilder.Entity("GameShelfMini.Data.Entities.Game", b =>
                 {
                     b.Navigation("GameDevelopers");
+
+                    b.Navigation("Loans");
                 });
 #pragma warning restore 612, 618
         }

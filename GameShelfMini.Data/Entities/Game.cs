@@ -13,15 +13,17 @@ namespace GameShelfMini.Data.Entities
         public Guid GameId { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(200)]
         public string Title { get; set; } = string.Empty;
+        [Required]
+        public Guid DeveloperId { get; set; }
 
         public Platform Platform { get; set; }
 
         public Genre Genre { get; set; }
 
         public int ReleaseYear { get; set; }
-
+        public ICollection<Loan> Loans { get; set; } = new List<Loan>();
         public ICollection<GameDeveloper> GameDevelopers { get; set; }= new List<GameDeveloper>();
     }
 }

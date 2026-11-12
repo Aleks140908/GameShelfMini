@@ -18,6 +18,8 @@ namespace GameShelfMini.Data
         public DbSet<Game> Games => Set<Game>();
         public DbSet<Developer> Developers => Set<Developer>();
         public DbSet<GameDeveloper> GameDevelopers => Set<GameDeveloper>();
+        public DbSet<Customer> Customers => Set<Customer>();
+        public DbSet<Loan> Loans => Set<Loan>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,7 +31,7 @@ namespace GameShelfMini.Data
 
                 entity.Property(g => g.Title)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<Developer>(entity =>
@@ -55,7 +57,37 @@ namespace GameShelfMini.Data
 
                 entity.HasOne(gd => gd.Developer)
                     .WithMany(d => d.GameDevelopers)
-                    .HasForeignKey(gd => gd.DeveloperId);
+                    .HasForeignKey(gd => gd.DeveloperId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasKey(c => c.CustomerId);
+
+                entity.Property(c => c.FullName)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(c => c.Email)
+                    .IsRequired()
+                    .HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<Loan>(entity =>
+            {
+                entity.HasKey(l => l.LoanId);
+
+                entity.HasOne(l => l.Game)
+                    .WithMany(g => g.Loans)
+                    .HasForeignKey(l => l.GameId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(l => l.Customer)
+                    .WithMany(c => c.Loans)
+                    .HasForeignKey(l => l.CustomerId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

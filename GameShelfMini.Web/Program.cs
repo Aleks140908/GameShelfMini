@@ -1,3 +1,6 @@
+using GameShelfMini.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace GameShelfMini.Web
 {
     public class Program
@@ -6,11 +9,13 @@ namespace GameShelfMini.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            var app = builder.Build();
+            builder.Services.AddDbContext<GameDbContext>(options =>
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection")));
 
+            var app = builder.Build();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

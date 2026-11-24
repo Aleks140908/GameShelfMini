@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GameShelfMini.Services;
+using GameShelfMini.Services.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GameShelfMini.Web.Controllers
 {
     public class GamesController : Controller
     {
-        public IActionResult Index()
+        private readonly IGameService gameService;
+        public GamesController(IGameService gameService)
         {
-            return View();
+            this.gameService = gameService;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var games = await gameService.GetAll();
+            return View(games);
         }
 
         public IActionResult Create()

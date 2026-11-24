@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameShelfMini.Web", "GameSh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameShelfMini.Data", "GameShelfMini.Data\GameShelfMini.Data.csproj", "{98C76AF1-D315-4B9D-B25C-81A2782671C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameShelfMini.Services", "GameShelfMini.Services\GameShelfMini.Services.csproj", "{C66FD715-80E2-4FE3-87AD-61D3085D46CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{98C76AF1-D315-4B9D-B25C-81A2782671C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98C76AF1-D315-4B9D-B25C-81A2782671C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98C76AF1-D315-4B9D-B25C-81A2782671C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66FD715-80E2-4FE3-87AD-61D3085D46CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66FD715-80E2-4FE3-87AD-61D3085D46CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66FD715-80E2-4FE3-87AD-61D3085D46CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66FD715-80E2-4FE3-87AD-61D3085D46CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,37 @@
-﻿@{
-    ViewData["Title"] = "Games";
+﻿@model IEnumerable<GameShelfMini.Data.Entities.Game>
+@{
+    ViewData["Title"] = "Игри";
 }
 
-<br />
-<h1>Games controller test</h1>
-<br /> 
-<a href="/Games/Create" class="btn btn-primary">Добави нова игра</a>
+<h1>Игри в каталога</h1>
+
+@if (!Model.Any())
+{
+    <p>Все още няма добавени игри.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Заглавие</th>
+                <th>Разработчици</th>
+                <th>Платформа</th>
+                <th>Жанр</th>
+                <th>Година</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@string.Join(", ", game.GameDevelopers.Select(gd => gd.Developer.Name))</td>
+                    <td>@game.Platform</td>
+                    <td>@game.Genre</td>
+                    <td>@game.ReleaseYear</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

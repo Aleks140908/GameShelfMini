@@ -1,4 +1,6 @@
 using GameShelfMini.Data;
+using GameShelfMini.Services;
+using GameShelfMini.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameShelfMini.Web
@@ -15,7 +17,13 @@ namespace GameShelfMini.Web
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
+             builder.Services.AddScoped<IGameService, GameService>();
+             builder.Services.AddScoped<IDeveloperService, DeveloperService>();
+             builder.Services.AddScoped<ICustomerService, CustomerService>();
+             builder.Services.AddScoped<ILoanService, LoanService>();
+
             var app = builder.Build();
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {

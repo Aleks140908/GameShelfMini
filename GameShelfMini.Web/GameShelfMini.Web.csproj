@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameShelfMini.Data\GameShelfMini.Data.csproj" />
+    <ProjectReference Include="..\GameShelfMini.Services\GameShelfMini.Services.csproj" />
   </ItemGroup>
 
 </Project>
